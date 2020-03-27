@@ -1,0 +1,36 @@
+from arrayqueue import ArrayQueue
+from arraydeque import ArrayDeque
+
+def test():
+    Q = ArrayQueue()
+    Q.enqueue(5)
+    Q.enqueue(3)
+    print(Q.data)
+    print(Q.dequeue())
+    print(Q.is_empty())
+    print(Q.first())
+    print(Q.data)
+# test()
+
+def test_deque():
+    D = ArrayDeque()
+    D.add_last(5)
+    D.add_first(3)
+    D.add_first(7)
+    print(D.first_element())
+    print(D.data)
+    print(D.delete_last())
+    print(D.data)
+    print(len(D))
+    print(D.delete_last())
+    print(D.data)
+    print(D.delete_last())
+    print(D.size, D.first, D.last)
+    print(D.data)
+    D.add_first(6)
+    print(D.data)
+    print(D.last_element())
+    D.add_first(8)
+    print(D.is_empty())
+    print(D.data)
+test_deque()
