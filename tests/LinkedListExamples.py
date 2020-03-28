@@ -1,5 +1,6 @@
 from linkedlists.singlylinkedlist import LinkedList
 from linkedlists.linkedStack import LinkedStack
+from linkedlists.positionallist import PositionalList
 
 def test_singlyLinkedList():
     L = LinkedList()
@@ -25,4 +26,10 @@ def test_linkedStack():
     print(S.is_empty())
     print(S)
 
-test_linkedStack()
+def test_positionalList():
+    L = PositionalList()
+    L.add_last(8)
+    L.add_after(L.first(), 5)
+    print(list(L))
+
+test_positionalList()
