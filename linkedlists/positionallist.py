@@ -44,7 +44,7 @@ class PositionalList(DoublyLinkedList):
 
     def last(self):
         """Return the last Position in the list"""
-        return self.make_position((self.trailer.prev))
+        return self.make_position(self.trailer.prev)
 
     def before(self, p):
         """Return the Position just before Position p"""

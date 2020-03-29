@@ -29,7 +29,17 @@ def test_linkedStack():
 def test_positionalList():
     L = PositionalList()
     L.add_last(8)
-    L.add_after(L.first(), 5)
+    p = L.first()
+    q = L.add_after(p, 5)
     print(list(L))
+    r = L.add_before(q, 3)
+    print(r.element())
+    s = L.after(p)
+    print(L.before(p))
+    t = L.add_first(9)
+    u = L.last()
+    print(u.element())
+    print(L.delete(u))
+    print(L.replace(p, 7))
 
 test_positionalList()

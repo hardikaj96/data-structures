@@ -29,7 +29,7 @@ class DoublyLinkedList:
         """Add data between two existing nodes and return new node"""
         new_node = Node(element, predecessor, successor)
         predecessor.next = new_node
-        successor.next = new_node
+        successor.prev = new_node
         self.size += 1
         return new_node
 
