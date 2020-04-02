@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f3d231-57d2-4b8e-8b64-a86b14a7fb76" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/TreesExamples.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trees/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trees/tree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trees/eulerTour.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linkedlists/doublylinkedlist.py" beforeDir="false" afterPath="$PROJECT_DIR$/linkedlists/doublylinkedlist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linkedlists/positionallist.py" beforeDir="false" afterPath="$PROJECT_DIR$/linkedlists/positionallist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/LinkedListExamples.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/LinkedListExamples.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/TreesExamples.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TreesExamples.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trees/tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/trees/tree.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,61 +85,70 @@
       <option name="project" value="LOCAL" />
       <updated>1585367455765</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add Binary Trees">
+      <created>1585456863613</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1585456863613</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add Linkedstack and linkedqueue" />
     <MESSAGE value="Add doublylinkedlist and PositionalList" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add doublylinkedlist and PositionalList" />
+    <MESSAGE value="Add Binary Trees" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Binary Trees" />
   </component>
   <component name="WindowStateProjectService">
     <state x="591" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585451000615">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="591" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.34.1920.1046@0.34.1920.1046" timestamp="1585451000615" />
-    <state x="0" y="41" width="1036" height="1039" key="CommitChangelistDialog2" timestamp="1585367454608">
+    <state x="0" y="41" width="1036" height="1039" key="CommitChangelistDialog2" timestamp="1585456862584">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="0" y="41" width="1036" height="1039" key="CommitChangelistDialog2/0.34.1920.1046@0.34.1920.1046" timestamp="1585367454608" />
+    <state x="0" y="41" width="1036" height="1039" key="CommitChangelistDialog2/0.34.1920.1046@0.34.1920.1046" timestamp="1585456862584" />
     <state x="276" y="258" width="530" height="608" key="FileChooserDialogImpl" timestamp="1585450998930">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="276" y="258" width="530" height="608" key="FileChooserDialogImpl/0.34.1920.1046@0.34.1920.1046" timestamp="1585450998930" />
-    <state width="932" height="162" key="GridCell.Tab.0.bottom" timestamp="1585456844294">
+    <state width="922" height="162" key="GridCell.Tab.0.bottom" timestamp="1585785845289">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state width="932" height="162" key="GridCell.Tab.0.bottom/0.34.1920.1046@0.34.1920.1046" timestamp="1585456844294" />
-    <state width="932" height="162" key="GridCell.Tab.0.center" timestamp="1585456844294">
+    <state width="922" height="162" key="GridCell.Tab.0.bottom/0.34.1920.1046@0.34.1920.1046" timestamp="1585785845289" />
+    <state width="922" height="162" key="GridCell.Tab.0.center" timestamp="1585785845287">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state width="932" height="162" key="GridCell.Tab.0.center/0.34.1920.1046@0.34.1920.1046" timestamp="1585456844294" />
-    <state width="932" height="162" key="GridCell.Tab.0.left" timestamp="1585456844293">
+    <state width="922" height="162" key="GridCell.Tab.0.center/0.34.1920.1046@0.34.1920.1046" timestamp="1585785845287" />
+    <state width="922" height="162" key="GridCell.Tab.0.left" timestamp="1585785845286">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state width="932" height="162" key="GridCell.Tab.0.left/0.34.1920.1046@0.34.1920.1046" timestamp="1585456844293" />
-    <state width="932" height="162" key="GridCell.Tab.0.right" timestamp="1585456844294">
+    <state width="922" height="162" key="GridCell.Tab.0.left/0.34.1920.1046@0.34.1920.1046" timestamp="1585785845286" />
+    <state width="922" height="162" key="GridCell.Tab.0.right" timestamp="1585785845288">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state width="932" height="162" key="GridCell.Tab.0.right/0.34.1920.1046@0.34.1920.1046" timestamp="1585456844294" />
-    <state x="0" y="230" width="1000" height="664" key="Vcs.Push.Dialog.v2" timestamp="1585367463203">
+    <state width="922" height="162" key="GridCell.Tab.0.right/0.34.1920.1046@0.34.1920.1046" timestamp="1585785845288" />
+    <state x="0" y="230" width="1000" height="664" key="Vcs.Push.Dialog.v2" timestamp="1585456872072">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="0" y="230" width="1000" height="664" key="Vcs.Push.Dialog.v2/0.34.1920.1046@0.34.1920.1046" timestamp="1585367463203" />
+    <state x="0" y="230" width="1000" height="664" key="Vcs.Push.Dialog.v2/0.34.1920.1046@0.34.1920.1046" timestamp="1585456872072" />
     <state x="35" y="346" key="com.intellij.ide.util.TipDialog" timestamp="1585340717469">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="35" y="346" key="com.intellij.ide.util.TipDialog/0.34.1920.1046@0.34.1920.1046" timestamp="1585340717469" />
-    <state x="170" y="459" width="609" height="205" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585438661188">
+    <state x="170" y="459" width="609" height="205" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585782221179">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="170" y="459" width="609" height="205" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.34.1920.1046@0.34.1920.1046" timestamp="1585438661188" />
+    <state x="170" y="459" width="609" height="205" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.34.1920.1046@0.34.1920.1046" timestamp="1585782221179" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trees/tree.py</url>
+          <line>2</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

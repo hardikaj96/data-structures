@@ -1,3 +1,5 @@
+from linkedlists.linkedQueue import LinkedQueue
+
 class Tree:
     """Abstract base class representing a tree structure"""
 
@@ -48,9 +50,9 @@ class Tree:
         """Return the total number of elements in the tree"""
         return self.size
 
-    def root(self):
+    def root1(self):
         """Return the root Position of the tree"""
-        return self.make_position((self.root))
+        return self.make_position(self.root)
 
     def parent(self, p):
         """Return the Position of p's parent"""
@@ -69,7 +71,7 @@ class Tree:
 
     def is_root(self, p):
         """Return True if Position p represents the root of the tree"""
-        return self.root() == p
+        return self.root1() == p
 
     def is_leaf(self, p):
         """Return True if Position p does not have any children"""
@@ -101,7 +103,7 @@ class Tree:
         """Return the height of the subtree rooted at Position p
         if p is None, return the height of the entire tree"""
         if p is None:
-            p = self.root()
+            p = self.root1()
         return self.height2(p)
 
     def sibling(self, p):
@@ -205,9 +207,111 @@ class Tree:
             t2.root = None
             t2.size = 0
 
-    def preorder_traversal(self, p):
-        """Preorder Traversal of the tree p"""
-        if p is not None:
-            yield p.element()
-            for each_child in self.children(p):
-                self.preorder_traversal(each_child)
+    def preorder(self):
+        """Generate a preorder iteration of positions in the tree"""
+        if not self.is_empty():
+            for p in self.subtree_preorder(self.root1()):
+                yield p.node.element
+
+    def subtree_preorder(self, p):
+        """Generate a preorder iteration of positions in subtree rooted at p"""
+        yield p
+        for c in self.children(p):
+            for other in self.subtree_preorder(c):
+                yield other
+
+    def postorder(self):
+        """Generate a preorder iteration of positions in the tree"""
+        if not self.is_empty():
+            for p in self.subtree_postorder(self.root1()):
+                yield p.node.element
+
+    def subtree_postorder(self, p):
+        """Generate a preorder iteration of positions in subtree rooted at p"""
+        for c in self.children(p):
+            for other in self.subtree_postorder(c):
+                yield other
+        yield p
+
+    def inorder(self):
+        """Generate an inorder iteration of positions in the tree"""
+        if not self.is_empty():
+            for p in self.subtree_inorder(self.root1()):
+                yield p.element()
+
+    def subtree_inorder(self, p):
+        """Generate an inorder iteration of positions in the tree."""
+        if self.left(p) is not None:
+            for other in self.subtree_inorder(self.left(p)):
+                yield other
+        yield p
+        if self.right(p) is not None:
+            for other in self.subtree_inorder(self.right(p)):
+                yield other
+
+    def breadthfirst(self):
+        """Generate a breadth-first iteration of the positions of the tree"""
+        if not self.is_empty():
+            fringe = LinkedQueue()
+            fringe.enqueue(self.root1())
+            while not fringe.is_empty():
+                p = fringe.dequeue()
+                yield p.node.element
+                for c in self.children(p):
+                    fringe.enqueue(c)
+
+
+class ExpressionTree(Tree):
+    """An arithmetic expression tree"""
+
+    def __init__(self, token, left=None, right=None):
+        """Create an expression tree
+        In a single parameter form, token should be a leaf value
+        and the expression tree will have that value at an isolated node
+
+        In a three-parameter version, token should be an operator.
+        and left and right should be existing Expression Tree instances
+        that become the operands for the binary operator
+        """
+        super().__init__()
+        if not isinstance(token, str):
+            raise TypeError('Token must be a string')
+        self.add_root(token)
+        if left is not None:
+            if token not in '+-x*/':
+                raise ValueError('token must be valid operator')
+            self.attach(self.root1(), left, right)
+
+    def __str__(self):
+        """Return string representation of the expression"""
+        pieces = []
+        self.parenthesize_recur(self.root(), pieces)
+        return ''.join(pieces)
+
+    def parenthesize_recur(self, p, result):
+        """Append piecewise representation of p's subtree to resulting list"""
+        if self.is_leaf(p):
+            result.append(str(p.element()))
+        else:
+            result.append('(')
+            self.parenthesize_recur(self.left(p), result)
+            result.append(p.element())
+            self.parenthesize_recur(self.right(p), result)
+            result.append(')')
+
+    def evaluate(self):
+        """Return the numeric result of the expression"""
+        return self.evaluate_recur(self.root1())
+
+    def evaluate_recur(self, p):
+        """Return the numeric result of subtree rooted at p"""
+        if self.is_leaf(p):
+            return float(p.element())
+        else:
+            op = p.element()
+            left_val = self.evaluate_recur(self.left(p))
+            right_val = self.evaluate_recur(self.right(p))
+            if op == '+': return left_val + right_val
+            if op == '-': return left_val - right_val
+            if op == '/': return left_val / right_val
+            else: return left_val * right_val
