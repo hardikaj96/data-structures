@@ -118,7 +118,7 @@ class ChainHashMap(HashMapBase):
         bucket = self.table[j]
         if bucket is None:
             raise KeyError('Key Error: ' + repr(k))
-        def bucket[k]
+        del bucket[k]
 
     def __iter__(self):
         for bucket in self.table:
