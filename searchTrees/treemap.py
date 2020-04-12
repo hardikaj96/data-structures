@@ -157,7 +157,7 @@ class TreeMap(Tree, MapBase):
         """Remove the item at given Position"""
         self.validate(p)
         if self.left(p) and self.right(p):
-            replacement = self.subtree_last_position(self.root(), k)
+            replacement = self.subtree_last_position(self.left(p))
             self.replace(p, replacement.element())
             p = replacement
         parent = self.parent(p)
@@ -228,38 +228,160 @@ class AVLTreeMap(TreeMap):
         def right_height(self):
             return self.right.height if self.right is not None else 0
 
-        def recompute_height(self, p):
-            p.node.height = 1 + max(p.node.left_height(), p.node.right_height())
+    def recompute_height(self, p):
+        p.node.height = 1 + max(p.node.left_height(), p.node.right_height())
 
-        def is_balanced(self, p):
-            return abs(p.node.left_height() - p.node.right_height()) <= 1
+    def is_balanced(self, p):
+        return abs(p.node.left_height() - p.node.right_height()) <= 1
 
-        def tall_child(self, p, favorleft=False):
-            if p.node.left_height() + (1 if favorleft else 0) > p.node.right_height():
-                return self.left(p)
+    def tall_child(self, p, favorleft=False):
+        if p.node.left_height() + (1 if favorleft else 0) > p.node.right_height():
+            return self.left(p)
+        else:
+            return self.right(p)
+
+    def tall_grandchild(self, p):
+        child = self.tall_child(p)
+        alignment = (child == self.left(p))
+        return self.tall_child(child, alignment)
+
+    def rebalance(self, p):
+        while p is not None:
+            old_height = p.node.height
+            if not self.is_balanced(p):
+                p = self.restructure(self.tall_grandchild(p))
+                self.recompute_height(self.left(p))
+                self.recompute_height(self.right(p))
+            self.recompute_height(p)
+            if p.node.height == old_height:
+                p = None
             else:
-                return self.right(p)
+                p = self.parent(p)
 
-        def tall_grandchild(self, p):
-            child = self.tall_child(p)
-            alignment = (child == self.left(p))
-            return self.tall_child(child, alignment)
+    def rebalance_insert(self, p):
+        self.rebalance(p)
 
-        def rebalance(self, p):
-            while p is not None:
-                old_height = p.node.height
-                if not self.is_balanced(p):
-                    p = self.restructure(self.tall_grandchild(p))
-                    self.recompute_height(self.left(p))
-                    self.recompute_height(self.right(p))
-                self.recompute_height(p)
-                if p.node.height == old_height:
-                    p = None
+    def rebalance_delete(self, p):
+        self.rebalance(p)
+
+class SplayTreeMap(TreeMap):
+    """Sorted map implementation using a splay tree"""
+
+    def splay(self, p):
+        while p != self.root1():
+            parent = self.parent(p)
+            grand = self.parent(parent)
+            if grand is None:
+                self.rotate(p)
+            elif (parent == self.left(grand)) == (p == self.left(parent)):
+                self.rotate(parent)
+                self.rotate(p)
+            else:
+                self.rotate(p)
+                self.rotate(p)
+
+    def rebalance_insert(self, p):
+        self.splay(p)
+
+    def rebalance_delete(self, p):
+        if p is not None:
+            self.splay(p)
+
+    def rebalance_access(self, p):
+        self.splay(p)
+
+class RedBlackTreeMap(TreeMap):
+    """Sorted map implementation using a red-black tree"""
+
+    class Node(TreeMap.Node):
+        """Node class for red-black tree maintains bit that denotes color"""
+        __slots__ = 'red'
+
+        def __init__(self, element, parent=None, left=None, right=None):
+            super().__init__(element, parent, left, right)
+            self.red = True
+
+    def set_red(self, p):
+        p.node.red = True
+
+    def set_black(self, p):
+        p.node.red = False
+
+    def set_color(self, p, make_red):
+        p.node.red = make_red
+
+    def is_red(self, p):
+        return p is not None and p.node.red
+
+    def is_red_leaf(self, p):
+        return self.is_red(p) and self.is_leaf(p)
+
+    def get_red_child(self, p):
+        """Return a red child of p"""
+        for child in (self.left(p), self.right(p)):
+            if self.is_red(child):
+                return child
+            return None
+
+    def rebalance_insert(self, p):
+        self.resolve_red(p)
+
+
+    def resolve_red(self, p):
+        if self.is_root(p):
+            self.set_black(p)
+        else:
+            parent = self.parent(p)
+            if self.is_red(parent):
+                uncle = self.sibling(parent)
+                if not self.is_red(uncle):
+                    middle = self.restructure(p)
+                    self.set_black(middle)
+                    self.set_red(self.left(middle))
+                    self.set_red(self.right(middle))
                 else:
-                    p = self.parent(p)
+                    grand = self.parent(parent)
+                    self.set_red(grand)
+                    self.set_black(self.left(grand))
+                    self.set_black(self.right(grand))
+                    self.resolve_red(grand)
 
-        def rebalance_insert(self, p):
-            self.rebalance(p)
+    def rebalance_delete(self, p):
+        if len(self) == 1:
+            self.set_black(self.root1())
+        elif p is not None:
+            n = self.num_children(p)
+            if n == 1:
+                c = next(self.children(p))
+                if not self.is_red_leaf(c):
+                    self.fix_deficit(p, c)
+            elif n == 2:
+                if self.is_red_leaf(self.left(p)):
+                    self.set_black(self.left(p))
+                else:
+                    self.set_black(self.right(p))
 
-        def rebalance_delete(self, p):
-            self.rebalance(p)
+    def fix_deficit(self, z, y):
+        """Resolve black deficit at z, where y is the root of z's heavier subtree"""
+        if not self.is_red(y):
+            x = self.get_red_child(y)
+            if x is not None:
+                old_color = self.is_red(z)
+                middle = self.restructure(x)
+                self.set_color(middle, old_color)
+                self.set_black(self.left(middle))
+                self.set_black(self.right(middle))
+            else:
+                self.set_red(y)
+                if self.is_red(z):
+                    self.set_black(z)
+                elif not self.is_root(z):
+                    self.fix_deficit(self.parent(z), self.sibling(z))
+        else:
+            self.rotate(y)
+            self.set_black(y)
+            self.set_red(z)
+            if z == self.right(y):
+                self.fix_deficit(z, self.left(z))
+            else:
+                self.fix_deficit(z, self.right(z))
